@@ -1,0 +1,28 @@
+[bounded-contexts]
+names = ["sharedkernel", "sharedscope", "sales", "crm", "user"]
+
+[bounded-contexts.sharedkernel]
+description = ""
+contains = [
+    "project.domains.user.*",
+]
+
+[bounded-contexts.sharedscope]
+description = ""
+contains = [
+    "project.domains.*.port",
+]
+
+[bounded-contexts.crm]
+description = ""
+contains = [
+    "project.domains.crm.models",
+    "project.domains.crm.services",
+]
+
+[bounded-contexts.sales]
+description = ""
+contains = [
+    "project.domains.sales.models",
+    "project.domains.sales.services",
+]
