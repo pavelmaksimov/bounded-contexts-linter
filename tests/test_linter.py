@@ -7,6 +7,16 @@ from bounded_contexts_linter.main import (
 
 
 def test_linter_detects_isolation_violation():
+    """
+    Checks that the linter detects isolation violation between bounded contexts.
+
+    The test uses a project example where a module from the 'crm' context imports a module
+    from the 'sales' context, which violates the isolation of bounded contexts.
+
+    Expected result: the linter should detect the violation and return information about it,
+    including the file path, line number, importing and imported modules, as well as
+    an error message.
+    """
     project_path = Path(__file__).parent / "example" / "project"
     config_path = Path(__file__).parent / "example" / "bounded-contexts.toml"
 
@@ -37,6 +47,15 @@ def test_linter_detects_isolation_violation():
 
 
 def test_no_overlapping_modules():
+    """
+    Checks that there are no overlapping modules between contexts with correct configuration.
+
+    The test uses a project example with correctly configured bounded contexts,
+    where each module belongs to only one context.
+
+    Expected result: the check_overlapping_modules function should return an empty list,
+    which means there are no overlaps between modules of different contexts.
+    """
     project_path = Path(__file__).parent / "example" / "project"
     config_path = Path(__file__).parent / "example" / "bounded-contexts.toml"
 
@@ -48,6 +67,15 @@ def test_no_overlapping_modules():
 
 
 def test_overlapping_modules():
+    """
+    Checks that the linter detects overlapping modules between contexts.
+
+    The test artificially creates a situation where the same module
+    (project.domains.sales.models) belongs to two different contexts: 'crm' and 'sales'.
+
+    Expected result: the check_overlapping_modules function should detect the overlap
+    and return a list containing information about the overlapping contexts and modules.
+    """
     project_path = Path(__file__).parent / "example" / "project"
     config_path = Path(__file__).parent / "example" / "bounded-contexts.toml"
 
@@ -67,6 +95,17 @@ def test_overlapping_modules():
 
 
 def test_overlapping_modules_excludes_shared_contexts():
+    """
+    Checks that the linter correctly excludes shared contexts when checking for overlaps.
+
+    The test artificially creates situations where:
+    1. A module from the 'crm' context overlaps with a module from 'sharedkernel'
+    2. A module from the 'sales' context overlaps with a module from 'sharedscope'
+
+    Expected result: the check_overlapping_modules function should return an empty list,
+    as overlaps with shared contexts (sharedkernel and sharedscope) are not considered
+    violations and should be excluded from the check.
+    """
     project_path = Path(__file__).parent / "example" / "project"
     config_path = Path(__file__).parent / "example" / "bounded-contexts.toml"
 
