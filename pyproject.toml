@@ -15,6 +15,10 @@ dev = [
     "pytest>=8.3.5",
 ]
 
+[project.urls]
+"Homepage" = "https://github.com/pavelmaksimov/bounded-contexts-linter"
+"Bug Tracker" = "https://github.com/pavelmaksimov/bounded-contexts-linter/issues"
+
 [project.entry-points."flake8.extension"]
 BC = "bounded_contexts_linter.flake8_plugin:BoundedContextLinter"
 
